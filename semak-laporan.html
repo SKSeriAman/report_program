@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semak Laporan</title>  
+  <link rel="stylesheet" href="css/semak_laporan.css">
+
+</head>
+<body>
+  <div id="sidebar" class="sidebar">
+    <button id="toggleBtn">&#9776;</button>
+    <div id="sidebarContent" class="sidebar-content">
+      <a href="index.html" id="semakLaporan">Halaman Utama</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Semak No Laporan</h2>
+    <input type="text" id="nomborLaporan" placeholder="Contoh: 1234">
+    <button onclick="semakLaporan()">Cari</button>
+    <div class="error" id="errorMsg"></div>
+  </div>
+
+
+</body>
+<script src="script/menu.js"></script>
+<script src="script/semak_laporan.js"></script>
+<link rel="stylesheet" href="css/menu.css">
+</html>

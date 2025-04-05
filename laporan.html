@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan Program</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+    img {
+      max-width: 100%;
+      margin: 1rem 0;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="laporan">
+    <h2>Sedang memuatkan laporan...</h2>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const no = params.get('no');
+    const laporanDiv = document.getElementById('laporan');
+
+    if (!no) {
+      laporanDiv.innerHTML = "<p style='color:red;'>Tiada nombor laporan diberikan.</p>";
+    } else {
+      fetch(`https://sheetdb.io/api/v1/r25ioe322oxn8/search?noLaporan=${no}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.length === 0) {
+            laporanDiv.innerHTML = "<p style='color:red;'>Laporan tidak dijumpai.</p>";
+            return;
+          }
+
+          const item = data[0];
+          laporanDiv.innerHTML = `
+            <h2>Laporan Program</h2>
+            <p><strong>No Laporan:</strong> ${item.nomborLaporan}</p>
+            <p><strong>Nama Program:</strong> ${item.namaProgram}</p>
+            <p><strong>Anjuran:</strong> ${item.anjuran}</p>
+            <p><strong>Tarikh dan Masa:</strong> ${item.tarikhMasa}</p>
+            <p><strong>Tempat:</strong> ${item.tempat}</p>
+            <p><strong>Bilangan Peserta:</strong> ${item.bilPeserta}</p>
+            <p><strong>Objektif:</strong><br>${item.objektif}</p>
+            <p><strong>Aktiviti:</strong><br>${item.aktiviti}</p>
+            <p><strong>Kekuatan:</strong><br>${item.kekuatan}</p>
+            <p><strong>Kelemahan:</strong><br>${item.kelemahan}</p>
+            <p><strong>Penambahbaikan:</strong><br>${item.penambahbaikan}</p>
+            ${item.gambar1 ? `<img src="${item.gambar1}" alt="Gambar 1" />` : ""}
+            ${item.gambar2 ? `<img src="${item.gambar2}" alt="Gambar 2" />` : ""}
+            ${item.gambar3 ? `<img src="${item.gambar3}" alt="Gambar 3" />` : ""}
+            ${item.gambar4 ? `<img src="${item.gambar4}" alt="Gambar 4" />` : ""}
+          `;
+        })
+        .catch(err => {
+          console.error(err);
+          laporanDiv.innerHTML = "<p style='color:red;'>Ralat semasa mengambil data laporan.</p>";
+        });
+    }
+  </script>
+</body>
+</html>

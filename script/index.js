@@ -1,0 +1,172 @@
+
+  const form = document.getElementById('eventForm');
+  const laporan = document.getElementById('laporan');
+
+  const previewImage = (inputId, previewId) => {
+    document.getElementById(inputId).addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById(previewId).src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  };
+function generateReportId() {
+  const timestamp = Date.now();
+  return `REPORT-${timestamp}`;
+}
+
+  // Set up previews
+  previewImage('gambar1', 'preview1');
+  previewImage('gambar2', 'preview2');
+  previewImage('gambar3', 'preview3');
+  previewImage('gambar4', 'preview4');
+
+  async function uploadImage(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'my_unsigned_preset'); // Replace with your actual preset
+
+    const response = await fetch('https://api.cloudinary.com/v1_1/dmzvrhryr/image/upload', {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await response.json();
+    return data.secure_url;
+  }
+  function generateReportId() {
+    const timestamp = Date.now();
+    return `REPORT-${timestamp}`;
+  }
+  
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const reportId = generateReportId();
+    const nama = document.getElementById('namaProgram').value;
+    const anjuran = document.getElementById('anjuran').value;
+    const tarikhMasa = document.getElementById('tarikhMasa').value;
+    const tempat = document.getElementById('tempat').value;
+    const bilPeserta = document.getElementById('bilPeserta').value;
+    const objektif = document.getElementById('objektif').value;
+    const aktiviti = document.getElementById('aktiviti').value;
+    const kekuatan = document.getElementById('kekuatan').value;
+    const kelemahan = document.getElementById('kelemahan').value;
+    const penambahbaikan = document.getElementById('penambahbaikan').value;
+    const email = document.getElementById('email').value;
+
+    // Upload each gambar individually
+    const gambarFiles = [
+      document.getElementById('gambar1').files[0],
+      document.getElementById('gambar2').files[0],
+      document.getElementById('gambar3').files[0],
+      document.getElementById('gambar4').files[0]
+    ];
+
+    const uploadedUrls = [];
+
+    for (let file of gambarFiles) {
+      if (file) {
+        const url = await uploadImage(file);
+        uploadedUrls.push(url);
+      } else {
+        uploadedUrls.push(''); // Empty if not uploaded
+      }
+    }
+
+    // Send to Google Sheets
+    fetch("https://sheetdb.io/api/v1/r25ioe322oxn8", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        data: {
+          reportId: reportId,
+          namaProgram: nama,
+          anjuran: anjuran,
+          tarikhMasa: tarikhMasa,
+          tempat: tempat,
+          bilPeserta: bilPeserta,
+          objektif: objektif,
+          aktiviti: aktiviti,
+          kekuatan: kekuatan,
+          kelemahan: kelemahan,
+          penambahbaikan: penambahbaikan,
+          gambar1: uploadedUrls[0],
+          gambar2: uploadedUrls[1],
+          gambar3: uploadedUrls[2],
+          gambar4: uploadedUrls[3]
+        }
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert("Laporan berjaya dihantar dan gambar dimuat naik!");
+      
+      
+      displayReport({
+        reportId,
+        nama,
+        anjuran,
+        tarikhMasa,
+        tempat,
+        bilPeserta,
+        objektif,
+        aktiviti,
+        kekuatan,
+        kelemahan,
+        penambahbaikan,
+        images: uploadedUrls
+      });
+
+      emailjs.send("template_4el288i", "service_q6neypf", {
+        to_email: email,
+        nama: nama,
+        report_id: reportId
+      })
+      .then(() => {
+        alert("Emel berjaya dihantar!");
+      })
+      .catch(error => {
+        console.error("Gagal hantar emel", error);
+      });
+    })
+    .catch(err => console.error(err));
+  });
+
+  function displayReport(data) {
+    const imageHtml = data.images
+      .filter(url => url)
+      .map(url => `<img src="${url}" alt="Gambar Program" />`)
+      .join('');
+
+    laporan.innerHTML = `
+      <h2>Laporan Program</h2>
+      <p><strong>Id Laporan+:</strong> ${data.reportId}</p>
+      <p><strong>Nama Program:</strong> ${data.nama}</p>
+      <p><strong>Anjuran:</strong> ${data.anjuran}</p>
+      <p><strong>Tarikh dan Masa:</strong> ${data.tarikhMasa}</p>
+      <p><strong>Tempat:</strong> ${data.tempat}</p>
+      <p><strong>Bilangan Peserta:</strong> ${data.bilPeserta}</p>
+      <p><strong>Objektif Program:</strong><br>${data.objektif}</p>
+      <h3>Rumusan Program</h3>
+      <p><strong>Aktiviti:</strong><br>${data.aktiviti}</p>
+      <p><strong>Kekuatan Program:</strong><br>${data.kekuatan}</p>
+      <p><strong>Kelemahan Program:</strong><br>${data.kelemahan}</p>
+      <p><strong>Penambahbaikan:</strong><br>${data.penambahbaikan}</p>
+      ${imageHtml}
+    `;
+  }
+
+  document.getElementById("email").addEventListener("input", function () {
+    const pattern = /^[a-zA-Z0-9._%+-]+@moe-dl\.edu\.my$/;
+    if (!pattern.test(this.value)) {
+      this.setCustomValidity("Gunakan emel ID Delima Sahaja");
+    } else {
+      this.setCustomValidity("");
+    }
+  });

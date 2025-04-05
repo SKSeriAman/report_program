@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  
+<script>
+  (function(){
+    emailjs.init("Dg6G3dYHY3K-__4PD"); 
+  })();
+</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pembuat Laporan Program</title>
+</head>
+<body>
+  <div id="sidebar" class="sidebar">
+    <button id="toggleBtn">&#9776;</button>
+    <div id="sidebarContent" class="sidebar-content">
+      <a href="semak-laporan.html" id="semakLaporan">Semak Laporan</a>
+    </div>
+  </div>
+  
+  <div class="container">
+    
+    <div class="header" style="text-align: center; image-align: center;">
+      <img src="img/logo_sk_seri_aman.jpg" height="120" alt="Logo KPM" style="display: block; margin: auto;" />
+      <h2>SEKOLAH KEBANGSAAN SERI AMAN</h2>
+      <h3>Bedong, 08100 Bedong, Kedah</h3>
+      <p></p>
+      <h3>KKB3038</h3>
+    
+    </div>
+    <h1>Pembuat Laporan Program</h1>
+    <form id="eventForm">
+      <label>Nama Program</label>
+      <input type="text" id="namaProgram" required />
+
+      <label>Anjuran</label>
+      <input type="text" id="anjuran" required />
+
+      <label>Tarikh dan Masa</label>
+      <input type="text" id="tarikhMasa" required />
+
+      <label>Tempat</label>
+      <input type="text" id="tempat" required />
+
+      <label>Bilangan Peserta/Kumpulan Sasaran</label>
+      <input type="text" id="bilPeserta" required />
+
+      <label>Objektif Program</label>
+      <textarea id="objektif" rows="3" required></textarea>
+
+      <label>Aktiviti</label>
+      <textarea id="aktiviti" rows="2" required></textarea>
+
+      <label>Kekuatan Program</label>
+      <textarea id="kekuatan" rows="2" required></textarea>
+
+      <label>Kelemahan Program</label>
+      <textarea id="kelemahan" rows="2" required></textarea>
+
+      <label>Penambahbaikan</label>
+      <textarea id="penambahbaikan" rows="2" required></textarea>
+
+      <label>Disediakan Oleh</label>
+      <input id="disediakanOleh" rows="2" required>
+
+      <label>Jawatan Penyedia Laporan (Dalam Program)</label>
+      <input id="jawatan" rows="2" required>
+
+      <label>Id Delima Penyedia Laporan </label>
+      <input type="email" id="email" pattern="^[a-zA-Z0-9._%+-]+@moe-dl\.edu\.my$" required />
+
+      <label>Gambar Program</label>
+      <label>Gambar 1</label>
+        <input type="file" id="gambar1" accept="image/*" />
+        <img id="preview1" />
+
+      <label>Gambar 2</label>
+      <input type="file" id="gambar2" accept="image/*" />
+      <img id="preview2" />
+
+      <label>Gambar 3</label>
+      <input type="file" id="gambar3" accept="image/*" />
+      <img id="preview3" />
+
+<label>Gambar 4</label>
+<input type="file" id="gambar4" accept="image/*" />
+<img id="preview4" />
+
+
+
+
+
+      <button type="submit">Hantar</button>
+    </form>
+
+    <div class="report" id="laporan"></div>
+  </div>
+
+  <script src="script/index.js"></script>
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/menu.csss">
+  <script src="script/menu.js"></script>
+</body>
+</html>

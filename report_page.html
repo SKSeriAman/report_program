@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One Page Report (OPR)</title>
+  <link rel="stylesheet" href="css/report_page.css">
+  <link rel="stylesheet" href="print.css" media="print">
+
+
+</head>
+<body>
+
+
+
+  <div class="opr-template">
+    <div class="header">
+      <img src="img/logo_sk_seri_aman.jpg" height="120" alt="Logo KPM" />
+      <h2>SEKOLAH KEBANGSAAN SERI AMAN</h2>
+      <h3>Bedong, 08100 Bedong, Kedah</h3>
+      <p></p>
+      <h3>KKB3038</h3>
+      <p></p>
+      <h3 id="reportId">No Laporan:</h3>
+    </div>
+
+    <div class="section">
+      <h4>Nama Program</h4>
+      <p id="namaProgram"></p>
+    </div>
+
+    <div class="section">
+      <h4>Anjuran</h4>
+      <p id="anjuran"></p>
+    </div>
+
+    <div class="section grid-two">
+      <div>
+        <h4>Tarikh dan Masa</h4>
+        <p id="tarikhMasa"></p>
+      </div>
+      <div>
+        <h4>Tempat</h4>
+        <p id="tempat"></p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h4>Bilangan Peserta/Kumpulan Sasaran</h4>
+      <p id="bilPeserta"></p>
+    </div>
+
+    <div class="section">
+      <h4>Objektif Program</h4>
+      <ul id="objektif"></ul>
+    </div>
+
+    <div class="section">
+      <h4>Rumusan Program</h4>
+      <p><strong>Aktiviti:</strong> <span id="aktiviti"></span></p>
+      <p><strong>Kekuatan Program:</strong> <span id="kekuatan"></span></p>
+      <p><strong>Kelemahan Program:</strong> <span id="kelemahan"></span></p>
+      <p><strong>Penambahbaikan:</strong> <span id="penambahbaikan"></span></p>
+    </div>
+
+    <div class="section">
+      <h4>Gambar Program</h4>
+      <div class="image-gallery">
+        <img src="" alt="Gambar 1" id="gambar1">
+        <img src="" alt="Gambar 2" id="gambar2">
+        <img src="" alt="Gambar 3" id="gambar3">
+        <img src="" alt="Gambar 4" id="gambar4">
+      </div>
+    </div>
+
+    <div class="footer-signature">
+      <div class="signature-box">
+        <p>Disediakan oleh:</p>
+        <p>.........................<br><strong> <span id="disediakanOleh" ></strong><br> <span id="jawatan" ></span></br> <span id="jawatan" ></span></p>
+      </div>
+      <div class="signature-box">
+        <p>Disahkan oleh:</p>
+        <p>.........................<br><strong><span id="NamaGB" ></strong><br>Guru Besar <br>SK Seri Aman</p>
+      </div>
+    </div>
+  </div>
+    <div class="print-hide" style="text-align: center; margin-bottom: 1rem;">
+    <button onclick="goHome()" style="margin-right: 1rem;">Halaman Utama</button>
+    <button onclick="goBack()" style="margin-right: 1rem;">Kembali</button>
+    <button onclick="printOPR()" style="margin-right: 1rem;">Cetak / Simpan PDF</button>
+    <button onclick="TukarGB()">Edit Nama Guru Besar</button>
+  </div>
+  
+  <div id="namaGBPopup" style="display:none; position:fixed; top:30%; left:50%; transform:translate(-50%, -30%); background:#fff; padding:1rem; border:1px solid #ccc; border-radius:10px;">
+    <h4>Edit Nama Guru Besar</h4>
+    <input type="password" id="adminPassword" placeholder="Masukkan Kata Laluan"><br><br>
+    <input type="text" id="newNamaGB" placeholder="Nama Baharu"><br><br>
+    <button onclick="submitNamaGB()">Simpan</button>
+    <button onclick="closeNamaGBPopup()">Batal</button>
+    <p id="popupMsg" style="color:red;"></p>
+  </div>
+</body>
+<script src="script/editGB.js"></script>
+<script src="script/report_page.js"></script>
+
+</html>
