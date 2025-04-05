@@ -105,3 +105,31 @@ body {
   font-size: 20px;
   width: 100%;
 }
+
+
+@media screen and (max-width: 600px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .sidebar-content {
+    display: none;
+    flex-direction: column;
+    background-color: #333;
+  }
+
+  .sidebar.open .sidebar-content {
+    display: flex;
+  }
+
+  #toggleBtn {
+    width: 100%;
+    text-align: left;
+  }
+
+  .sidebar a {
+    font-size: 14px;
+  }
+}

@@ -42,7 +42,7 @@
     const laporanDiv = document.getElementById('laporan');
 
     if (!no) {
-      laporanDiv.innerHTML = "<p style='color:red;'>Tiada nombor laporan diberikan.</p>";
+      laporanDiv.innerHTML = "<p style='color:red;'>Tiada nombor rujukan diberikan.</p>";
     } else {
       fetch(`https://sheetdb.io/api/v1/r25ioe322oxn8/search?noLaporan=${no}`)
         .then(res => res.json())
@@ -55,7 +55,7 @@
           const item = data[0];
           laporanDiv.innerHTML = `
             <h2>Laporan Program</h2>
-            <p><strong>No Laporan:</strong> ${item.nomborLaporan}</p>
+            <p><strong>No rujukan:</strong> ${item.nomborLaporan}</p>
             <p><strong>Nama Program:</strong> ${item.namaProgram}</p>
             <p><strong>Anjuran:</strong> ${item.anjuran}</p>
             <p><strong>Tarikh dan Masa:</strong> ${item.tarikhMasa}</p>

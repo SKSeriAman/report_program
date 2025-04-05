@@ -5,7 +5,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const reportId = urlParams.get('no');
 
 // Paparkan No Laporan
-document.getElementById("reportId").textContent = `No Laporan: ${reportId}`;
+document.getElementById("reportId").textContent = `No. Rujukan: ${reportId}`;
 
 
 

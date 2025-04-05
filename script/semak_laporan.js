@@ -3,7 +3,7 @@ function semakLaporan() {
     const errorMsg = document.getElementById("errorMsg");
 
     if (!no) {
-      errorMsg.textContent = "Sila masukkan nombor laporan.";
+      errorMsg.textContent = "Sila masukkan nombor rujukan.";
       return;
     }
 

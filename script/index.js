@@ -1,4 +1,4 @@
-
+  import { sendEmail } from './autoEmail.js';
   const form = document.getElementById('eventForm');
   const laporan = document.getElementById('laporan');
 
@@ -38,11 +38,7 @@ function generateReportId() {
     const data = await response.json();
     return data.secure_url;
   }
-  function generateReportId() {
-    const timestamp = Date.now();
-    return `REPORT-${timestamp}`;
-  }
-  
+
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     const reportId = generateReportId();
@@ -57,6 +53,8 @@ function generateReportId() {
     const kelemahan = document.getElementById('kelemahan').value;
     const penambahbaikan = document.getElementById('penambahbaikan').value;
     const email = document.getElementById('email').value;
+    const disediakanOleh = document.getElementById('disediakanOleh').value;
+    const jawatan = document.getElementById('jawatan').value;
 
     // Upload each gambar individually
     const gambarFiles = [
@@ -96,6 +94,8 @@ function generateReportId() {
           kekuatan: kekuatan,
           kelemahan: kelemahan,
           penambahbaikan: penambahbaikan,
+          jawatan:jawatan,
+          disediakanOleh: disediakanOleh,
           gambar1: uploadedUrls[0],
           gambar2: uploadedUrls[1],
           gambar3: uploadedUrls[2],
@@ -104,9 +104,10 @@ function generateReportId() {
       })
     })
     .then(res => res.json())
+    
     .then(data => {
       alert("Laporan berjaya dihantar dan gambar dimuat naik!");
-      
+      sendEmail()
       
       displayReport({
         reportId,
@@ -123,17 +124,9 @@ function generateReportId() {
         images: uploadedUrls
       });
 
-      emailjs.send("template_4el288i", "service_q6neypf", {
-        to_email: email,
-        nama: nama,
-        report_id: reportId
-      })
-      .then(() => {
-        alert("Emel berjaya dihantar!");
-      })
-      .catch(error => {
-        console.error("Gagal hantar emel", error);
-      });
+      
+
+
     })
     .catch(err => console.error(err));
   });
@@ -146,7 +139,7 @@ function generateReportId() {
 
     laporan.innerHTML = `
       <h2>Laporan Program</h2>
-      <p><strong>Id Laporan+:</strong> ${data.reportId}</p>
+      <p><strong>No Rujukan:</strong> ${data.reportId}</p>
       <p><strong>Nama Program:</strong> ${data.nama}</p>
       <p><strong>Anjuran:</strong> ${data.anjuran}</p>
       <p><strong>Tarikh dan Masa:</strong> ${data.tarikhMasa}</p>

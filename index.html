@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  
-<script>
-  (function(){
-    emailjs.init("Dg6G3dYHY3K-__4PD"); 
-  })();
+  <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
 </script>
+    <link rel="stylesheet" href="css/menu.css">
+    <script type="text/javascript">
+      (function(){
+         emailjs.init({
+           publicKey: "Dg6G3dYHY3K-__4PD",
+         });
+      })();
+   </script>
+
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pembuat Laporan Program</title>
 </head>
 <body>
+
+  
   <div id="sidebar" class="sidebar">
     <button id="toggleBtn">&#9776;</button>
     <div id="sidebarContent" class="sidebar-content">
@@ -93,15 +100,16 @@
 
 
 
-      <button type="submit">Hantar</button>
+      <button type="submit" style="align-content: center;">Hantar</button>
     </form>
 
     <div class="report" id="laporan"></div>
   </div>
+  <link rel="stylesheet" href="css/menu.css">
+  <script type="module" src="script/index.js"></script>
 
-  <script src="script/index.js"></script>
   <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="css/menu.csss">
+
   <script src="script/menu.js"></script>
 </body>
 </html>
