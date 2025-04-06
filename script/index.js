@@ -16,7 +16,7 @@
   };
 function generateReportId() {
   const timestamp = Date.now();
-  return `REPORT-${timestamp}`;
+  return `SKSA-${timestamp}`;
 }
 
   // Set up previews
