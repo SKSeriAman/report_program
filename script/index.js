@@ -44,7 +44,9 @@ function generateReportId() {
     const reportId = generateReportId();
     const nama = document.getElementById('namaProgram').value;
     const anjuran = document.getElementById('anjuran').value;
-    const tarikhMasa = document.getElementById('tarikhMasa').value;
+    const tarikh = document.getElementById('tarikh').value;
+    const masaMula = document.getElementById('masaMula').value;
+    const masaTamat = document.getElementById('masaTamat').value;
     const tempat = document.getElementById('tempat').value;
     const bilPeserta = document.getElementById('bilPeserta').value;
     const objektif = document.getElementById('objektif').value;
@@ -86,7 +88,9 @@ function generateReportId() {
           reportId: reportId,
           namaProgram: nama,
           anjuran: anjuran,
-          tarikhMasa: tarikhMasa,
+          tarikh: tarikh,
+          masaMula: masaMula,
+          masaTamat: masaTamat,
           tempat: tempat,
           bilPeserta: bilPeserta,
           objektif: objektif,
@@ -113,7 +117,7 @@ function generateReportId() {
         reportId,
         nama,
         anjuran,
-        tarikhMasa,
+        tarikh,
         tempat,
         bilPeserta,
         objektif,
@@ -142,7 +146,7 @@ function generateReportId() {
       <p><strong>No Rujukan:</strong> ${data.reportId}</p>
       <p><strong>Nama Program:</strong> ${data.nama}</p>
       <p><strong>Anjuran:</strong> ${data.anjuran}</p>
-      <p><strong>Tarikh dan Masa:</strong> ${data.tarikhMasa}</p>
+      <p><strong>Tarikh :</strong> ${data.tarikh}</p>
       <p><strong>Tempat:</strong> ${data.tempat}</p>
       <p><strong>Bilangan Peserta:</strong> ${data.bilPeserta}</p>
       <p><strong>Objektif Program:</strong><br>${data.objektif}</p>
