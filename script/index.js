@@ -147,6 +147,8 @@ function generateReportId() {
       <p><strong>Nama Program:</strong> ${data.nama}</p>
       <p><strong>Anjuran:</strong> ${data.anjuran}</p>
       <p><strong>Tarikh :</strong> ${data.tarikh}</p>
+      <p><strong>Masa Mula:</strong> ${data.masaMula}</p>
+      <p><strong>Masa Tamat:</strong> ${data.masaTamat}</p>
       <p><strong>Tempat:</strong> ${data.tempat}</p>
       <p><strong>Bilangan Peserta:</strong> ${data.bilPeserta}</p>
       <p><strong>Objektif Program:</strong><br>${data.objektif}</p>
@@ -155,6 +157,8 @@ function generateReportId() {
       <p><strong>Kekuatan Program:</strong><br>${data.kekuatan}</p>
       <p><strong>Kelemahan Program:</strong><br>${data.kelemahan}</p>
       <p><strong>Penambahbaikan:</strong><br>${data.penambahbaikan}</p>
+      <p><strong>Disediakan Oleh:</strong> ${data.disediakanOleh}</p>
+      <p><strong>Jawatan:</strong> ${data.jawatan}</p>
       ${imageHtml}
     `;
   }
