@@ -14,6 +14,14 @@
       }
     });
   };
+  document.getElementById('tarikh').addEventListener('change', function () {
+    const inputTarikh = new Date(this.value);
+    const hariMelayu = ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"];
+    const namaHari = hariMelayu[inputTarikh.getDay()];
+    document.getElementById('hari').value = namaHari;
+  });
+  
+  
 function generateReportId() {
   const timestamp = Date.now();
   return `SKSA-${timestamp}`;
@@ -28,7 +36,7 @@ function generateReportId() {
   async function uploadImage(file) {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'my_unsigned_preset'); // Replace with your actual preset
+    formData.append('upload_preset', 'my_unsigned_preset'); 
 
     const response = await fetch('https://api.cloudinary.com/v1_1/dmzvrhryr/image/upload', {
       method: 'POST',
@@ -41,83 +49,87 @@ function generateReportId() {
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
-    const reportId = generateReportId();
-    const nama = document.getElementById('namaProgram').value;
-    const anjuran = document.getElementById('anjuran').value;
-    const tarikh = document.getElementById('tarikh').value;
-    const masaMula = document.getElementById('masaMula').value;
-    const masaTamat = document.getElementById('masaTamat').value;
-    const tempat = document.getElementById('tempat').value;
-    const bilPeserta = document.getElementById('bilPeserta').value;
-    const objektif = document.getElementById('objektif').value;
-    const aktiviti = document.getElementById('aktiviti').value;
-    const kekuatan = document.getElementById('kekuatan').value;
-    const kelemahan = document.getElementById('kelemahan').value;
-    const penambahbaikan = document.getElementById('penambahbaikan').value;
-    const email = document.getElementById('email').value;
-    const disediakanOleh = document.getElementById('disediakanOleh').value;
-    const jawatan = document.getElementById('jawatan').value;
-
-    // Upload each gambar individually
-    const gambarFiles = [
-      document.getElementById('gambar1').files[0],
-      document.getElementById('gambar2').files[0],
-      document.getElementById('gambar3').files[0],
-      document.getElementById('gambar4').files[0]
-    ];
-
-    const uploadedUrls = [];
-
-    for (let file of gambarFiles) {
-      if (file) {
-        const url = await uploadImage(file);
-        uploadedUrls.push(url);
-      } else {
-        uploadedUrls.push(''); // Empty if not uploaded
-      }
-    }
-
-    // Send to Google Sheets
-    fetch("https://sheetdb.io/api/v1/r25ioe322oxn8", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        data: {
-          reportId: reportId,
-          namaProgram: nama,
-          anjuran: anjuran,
-          tarikh: tarikh,
-          masaMula: masaMula,
-          masaTamat: masaTamat,
-          tempat: tempat,
-          bilPeserta: bilPeserta,
-          objektif: objektif,
-          aktiviti: aktiviti,
-          kekuatan: kekuatan,
-          kelemahan: kelemahan,
-          penambahbaikan: penambahbaikan,
-          jawatan:jawatan,
-          disediakanOleh: disediakanOleh,
-          gambar1: uploadedUrls[0],
-          gambar2: uploadedUrls[1],
-          gambar3: uploadedUrls[2],
-          gambar4: uploadedUrls[3]
+  
+    // Tunjuk loader
+    document.getElementById('loader').style.display = 'flex';
+  
+    try {
+      const reportId = generateReportId();
+      const nama = document.getElementById('namaProgram').value;
+      const anjuran = document.getElementById('anjuran').value;
+      const tarikh = document.getElementById('tarikh').value;
+      const hari = document.getElementById('hari').value;
+      const masaMula = document.getElementById('masaMula').value;
+      const masaTamat = document.getElementById('masaTamat').value;
+      const tempat = document.getElementById('tempat').value;
+      const bilPeserta = document.getElementById('bilPeserta').value;
+      const objektif = document.getElementById('objektif').value;
+      const aktiviti = document.getElementById('aktiviti').value;
+      const kekuatan = document.getElementById('kekuatan').value;
+      const kelemahan = document.getElementById('kelemahan').value;
+      const penambahbaikan = document.getElementById('penambahbaikan').value;
+      const email = document.getElementById('email').value;
+      const disediakanOleh = document.getElementById('disediakanOleh').value;
+      const jawatan = document.getElementById('jawatan').value;
+  
+      const gambarFiles = [
+        document.getElementById('gambar1').files[0],
+        document.getElementById('gambar2').files[0],
+        document.getElementById('gambar3').files[0],
+        document.getElementById('gambar4').files[0]
+      ];
+  
+      const uploadedUrls = [];
+  
+      for (let file of gambarFiles) {
+        if (file) {
+          const url = await uploadImage(file);
+          uploadedUrls.push(url);
+        } else {
+          uploadedUrls.push('');
         }
-      })
-    })
-    .then(res => res.json())
-    
-    .then(data => {
+      }
+  
+      // Hantar ke SheetDB
+      await fetch("https://sheetdb.io/api/v1/r25ioe322oxn8", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          data: {
+            reportId,
+            namaProgram: nama,
+            anjuran,
+            tarikh,
+            hari,
+            masaMula,
+            masaTamat,
+            tempat,
+            bilPeserta,
+            objektif,
+            aktiviti,
+            kekuatan,
+            kelemahan,
+            penambahbaikan,
+            jawatan,
+            disediakanOleh,
+            gambar1: uploadedUrls[0],
+            gambar2: uploadedUrls[1],
+            gambar3: uploadedUrls[2],
+            gambar4: uploadedUrls[3]
+          }
+        })
+      });
+  
       alert("Laporan berjaya dihantar dan gambar dimuat naik!");
-      sendEmail()
-      
+      sendEmail();
+  
       displayReport({
         reportId,
         nama,
         anjuran,
         tarikh,
+        masaMula,
+        masaTamat,
         tempat,
         bilPeserta,
         objektif,
@@ -125,15 +137,21 @@ function generateReportId() {
         kekuatan,
         kelemahan,
         penambahbaikan,
-        images: uploadedUrls
+        images: uploadedUrls,
+        disediakanOleh,
+        jawatan
       });
-
-      
-
-
-    })
-    .catch(err => console.error(err));
+  
+    } catch (err) {
+      console.error(err);
+      alert("Terdapat ralat semasa menghantar laporan.");
+    } finally {
+      // Sembunyikan loader
+      document.getElementById('loader').style.display = 'none';
+    }
   });
+  
+  
 
   function displayReport(data) {
     const imageHtml = data.images

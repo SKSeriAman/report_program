@@ -46,7 +46,10 @@
 
       <label>Tarikh</label>
       <input type="date" id="tarikh" required />
-
+      
+      <label>Hari</label>
+      <input type="text" id="hari" name="hari" readonly>
+      
       <label>Masa Mula:</label>
       <input type="time" id="masaMula" required />
       
@@ -116,9 +119,13 @@
 
   <script src="script/menu.js"></script>
 
-<!--<div class="loader-wrapper">
-  <span class="loader"><span class="loader-inner"></span></span>
-</div>
--->
+  <div id="loader" class="loader-wrapper" style="display: none;">
+    <div class="loader-content">
+      <div class="spinner"></div>
+      <p>Sila tunggu... OPR Anda Sedang dimuat Naik</p>
+    </div>
+  </div>
+  
+  
 </body>
 </html>
